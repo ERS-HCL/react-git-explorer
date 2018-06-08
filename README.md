@@ -10,6 +10,14 @@
 yarn install
 ```
 
+## environment setup
+
+Add the github token env variable to .env.development.local
+
+```
+REACT_APP_GITHUB_TOKEN=<GITHUB OAUTH TOKEN>
+```
+
 ## run
 
 ```bash
