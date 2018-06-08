@@ -43,7 +43,7 @@ const GitCards = props => {
           : edge.node.login;
       return (
         <ListGroupItem key={name}>
-          <img src={edge.node.avatarUrl} alt="Avatar" class="avatar" />{' '}
+          <img src={edge.node.avatarUrl} alt="Avatar" className="avatar" />{' '}
           <small>{name}</small>
         </ListGroupItem>
       );
@@ -80,11 +80,10 @@ const GitCards = props => {
           <span dangerouslySetInnerHTML={{ __html: data.descriptionHTML }} />
         </CardText>
         <CardText>
-          <div>{data.topics}</div>
+          {data.topics}
         </CardText>
-        <CardText>
+
           <ListGroup>{data.contributors}</ListGroup>
-        </CardText>
             <a href={data.url} target="_blank"><small>GITHUB</small></a>
       </CardBody>
     </Card>

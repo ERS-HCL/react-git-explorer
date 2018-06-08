@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-import {
-  Col,
-  Container,
-  Jumbotron,
-  Row
-} from 'reactstrap';
-
+import { Container, Jumbotron } from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-import RepoList from './components/repoList'
+import RepoList from './components/repoList';
 
 class App extends Component {
   constructor(props) {
@@ -44,27 +38,15 @@ class App extends Component {
             </Nav>
           </Collapse>
         </Navbar> */}
-        <Jumbotron>
-          <Container>
-            <Row>
-              <Col>
-                <h1>ERS HCL Github Stats</h1>
-{/*                 <p>
-                  <Button
-                    tag="a"
-                    color="success"
-                    size="large"
-                    href="http://reactstrap.github.io"
-                    target="_blank"
-                  >
-                    View Reactstrap Docs
-                  </Button>
-                </p> */}
-              </Col>
-            </Row>
+        <Jumbotron fluid className="bg-muted jumbo">
+          <Container fluid>
+            <h1 className="display-3">ERS HCL Github Stats</h1>
+            <p className="lead">
+              ERS HCL Organization Open Source project statistics..
+            </p>
           </Container>
         </Jumbotron>
-        <RepoList/>
+        <RepoList />
       </div>
     );
   }

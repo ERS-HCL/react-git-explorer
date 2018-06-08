@@ -113,56 +113,70 @@ const getOrgData = gql`
 `;
 
 class RepoList extends Component {
-
+  state = {
+    fetching: false
+  }
   render() {
     return (
       <Query query={getOrgData}>
         {({ loading, error, data, fetchMore }) => {
-          if (loading) return 'Loading...';
+          if (loading)
+            return (
+              <Container>
+                <i className="fa fa-refresh fa-spin my-spinner" />
+              </Container>
+            );
           if (error) return `Error! ${error.message}`;
-          console.log(data.organization);
-          const repoList = data.organization.repositories.edges;
-          console.log(repoList);
+          //  console.log(data.organization);
+          // const repoList = data.organization.repositories.edges;
+          //  console.log(repoList);
           const totalCount = data.organization.repositories.totalCount;
           const totalCurrent = data.organization.repositories.edges.length;
           const newCursor = data.organization.repositories.pageInfo.endCursor;
 
           // There are more repositories available
-          const hasMoreData: boolean = () => {
-            return !(totalCurrent < totalCount && (newCursor !== null || newCursor !== ''))
-          }
+          const hasMoreData = () => {
+            return !(
+              !this.state.fetching &&
+              totalCurrent < totalCount &&
+              (newCursor !== null || newCursor !== '')
+            );
+          };
 
           const onFetchMore = newCursor => {
-            if (newCursor === null || newCursor === '')
-                return
+            this.setState({
+              fetching: true
+            })
+            if (newCursor === null || newCursor === '') return;
             fetchMore({
               query: getCursorOrgData,
               variables: { cursor: newCursor },
               updateQuery: (previousResult, { fetchMoreResult }) => {
-                const newData = fetchMoreResult.organization.repositories;
-                const newCursor =
-                  fetchMoreResult.organization.repositories.pageInfo.endCursor;
                 const newTotalCount =
-                    fetchMoreResult.organization.repositories.totalCount;
+                  fetchMoreResult.organization.repositories.totalCount;
                 const newPageInfo =
                   fetchMoreResult.organization.repositories.pageInfo;
                 const previousEdges =
                   previousResult.organization.repositories.edges;
                 const newEdges =
                   fetchMoreResult.organization.repositories.edges;
-                console.log(newData, newCursor);
+               // console.log(newData, newCursor);
+                this.setState({
+                  fetching: false
+                })
                 return {
                   organization: {
                     ...previousResult.organization,
                     ...fetchMoreResult.organization,
-                   repositories: {
-                       // Add typename for any type you are planning to update otherwise 
-                       // apollo client complains of __typename missing
-                        __typename: previousResult.organization.repositories.__typename,
-                        totalCount: newTotalCount,
-                        pageInfo: newPageInfo,
-                        edges: [...previousEdges, ...newEdges]
-                      }
+                    repositories: {
+                      // Add typename for any type you are planning to update otherwise
+                      // apollo client complains of __typename missing
+                      __typename:
+                        previousResult.organization.repositories.__typename,
+                      totalCount: newTotalCount,
+                      pageInfo: newPageInfo,
+                      edges: [...previousEdges, ...newEdges]
+                    }
                   }
                 };
               }
@@ -171,11 +185,21 @@ class RepoList extends Component {
 
           return (
             <Container>
-              <GitCards repositories={data.organization.repositories}/>
-              <Button disabled={hasMoreData()} onClick={() => onFetchMore(newCursor)}>
-                Fetch More Matches
-              </Button>
-              </Container>
+              <GitCards repositories={data.organization.repositories} />
+              <div>
+                <hr className="my-hr" size="30" />
+                <Button
+                  disabled={hasMoreData()}
+                  onClick={() => onFetchMore(newCursor)}
+                  color="success"
+                  className="my-button"
+                >
+                  MORE PROJECTS
+                </Button>
+                <Button disabled={true} color="success" className="my-button">{totalCurrent}/{totalCount}</Button>
+                {(this.state.fetching === true)?<i className="fa fa-refresh fa-spin my-spinner" />:undefined}
+              </div>
+            </Container>
           );
         }}
       </Query>
