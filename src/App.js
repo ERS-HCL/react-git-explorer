@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
 import {
-  Button,
   Col,
-  Collapse,
   Container,
   Jumbotron,
-  Nav,
-  Navbar,
-  NavbarBrand,
-  NavbarToggler,
-  NavItem,
-  NavLink,
   Row
 } from 'reactstrap';
 
@@ -36,7 +28,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar color="faded" light={true} expand="md">
+        {/* <Navbar color="faded" light={true} expand="md">
           <NavbarBrand href="/">reactstrap</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar={true}>
@@ -51,13 +43,13 @@ class App extends Component {
               </NavItem>
             </Nav>
           </Collapse>
-        </Navbar>
+        </Navbar> */}
         <Jumbotron>
           <Container>
             <Row>
               <Col>
-                <h1>Welcome to React</h1>
-                <p>
+                <h1>ERS HCL Github Stats</h1>
+{/*                 <p>
                   <Button
                     tag="a"
                     color="success"
@@ -67,7 +59,7 @@ class App extends Component {
                   >
                     View Reactstrap Docs
                   </Button>
-                </p>
+                </p> */}
               </Col>
             </Row>
           </Container>

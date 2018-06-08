@@ -1,0 +1,10 @@
+.avatar {
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.pills {
+    padding-left: 10px;
+}

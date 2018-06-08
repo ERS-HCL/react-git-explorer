@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
+import GitCards from './gitCards';
+import { Button, Container } from 'reactstrap';
 import './repoList.css';
 
 const getCursorOrgData = gql`
@@ -46,6 +48,7 @@ const getCursorOrgData = gql`
                 node {
                   name
                   login
+                  avatarUrl
                 }
               }
             }
@@ -98,6 +101,7 @@ const getOrgData = gql`
                 node {
                   name
                   login
+                  avatarUrl
                 }
               }
             }
@@ -109,6 +113,7 @@ const getOrgData = gql`
 `;
 
 class RepoList extends Component {
+
   render() {
     return (
       <Query query={getOrgData}>
@@ -118,14 +123,13 @@ class RepoList extends Component {
           console.log(data.organization);
           const repoList = data.organization.repositories.edges;
           console.log(repoList);
-          const repoDisplay = repoList.map(item => (
-            <li key={item.node.name}>{item.node.name}</li>
-          ));
           const totalCount = data.organization.repositories.totalCount;
-
+          const totalCurrent = data.organization.repositories.edges.length;
           const newCursor = data.organization.repositories.pageInfo.endCursor;
-          const hasMoreData: boolean = (data,totalCount,cursor) => {
-            return (data.length === totalCount || newCursor === null || newCursor === '')
+
+          // There are more repositories available
+          const hasMoreData: boolean = () => {
+            return !(totalCurrent < totalCount && (newCursor !== null || newCursor !== ''))
           }
 
           const onFetchMore = newCursor => {
@@ -166,12 +170,12 @@ class RepoList extends Component {
           };
 
           return (
-            <div>
-              <ul>{repoDisplay}</ul>
-              <button onClick={() => onFetchMore(newCursor)}>
+            <Container>
+              <GitCards repositories={data.organization.repositories}/>
+              <Button disabled={hasMoreData()} onClick={() => onFetchMore(newCursor)}>
                 Fetch More Matches
-              </button>
-            </div>
+              </Button>
+              </Container>
           );
         }}
       </Query>
