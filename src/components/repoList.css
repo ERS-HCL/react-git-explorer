@@ -13,4 +13,7 @@
     font-size: 24px;
     margin-left: 10px;
     margin-right: 10px;
+    align-self: center;
+    align-content: center;
+    align-items: center;
 }

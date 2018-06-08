@@ -30,3 +30,7 @@ yarn start
 yarn build
 ```
 
+### Sample screenshot
+
+![image](public/snapshot.PNG)
+
