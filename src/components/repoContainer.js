@@ -1,0 +1,177 @@
+import React from 'react';
+import { gql } from 'apollo-boost';
+import { Query } from 'react-apollo';
+import RepoList from './repoList';
+import { Container } from 'reactstrap';
+const getCursorOrgData = gql`
+  query($cursor: String) {
+    organization(login: "ERS-HCL") {
+      repositories(first: 50, after: $cursor) {
+        totalCount
+        pageInfo {
+          endCursor
+          __typename
+        }
+        edges {
+          cursor
+          node {
+            name
+            descriptionHTML
+            license
+            stargazers(first: 50) {
+              totalCount
+            }
+            repositoryTopics(first: 20) {
+              edges {
+                node {
+                  topic {
+                    name
+                  }
+                }
+              }
+            }
+            forkCount
+            isFork
+            createdAt
+            updatedAt
+            pushedAt
+            homepageUrl
+            url
+            primaryLanguage {
+              name
+              color
+            }
+            collaborators(first: 50, affiliation: DIRECT) {
+              edges {
+                node {
+                  name
+                  login
+                  avatarUrl
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const getOrgData = gql`
+  {
+    organization(login: "ERS-HCL") {
+      repositories(first: 50) {
+        totalCount
+        pageInfo {
+          endCursor
+          __typename
+        }
+        edges {
+          node {
+            name
+            descriptionHTML
+            license
+            stargazers(first: 50) {
+              totalCount
+            }
+            repositoryTopics(first: 20) {
+              edges {
+                node {
+                  topic {
+                    name
+                  }
+                }
+              }
+            }
+            forkCount
+            isFork
+            createdAt
+            updatedAt
+            pushedAt
+            homepageUrl
+            url
+            primaryLanguage {
+              name
+              color
+            }
+            collaborators(first: 50, affiliation: DIRECT) {
+              edges {
+                node {
+                  name
+                  login
+                  avatarUrl
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+
+const RepoContainer = props => {
+  return (
+    <Query query={getOrgData}>
+      {({ loading, error, data, fetchMore }) => {
+        if (loading)
+          return (
+            <Container>
+              <i className="fa fa-refresh fa-spin my-spinner" />
+            </Container>
+          ); 
+        if (error) return `Error! ${error.message}`;
+        
+        const totalCount = data.organization.repositories.totalCount;
+        const totalCurrent = data.organization.repositories.edges.length;
+        const newCursor = data.organization.repositories.pageInfo.endCursor;
+
+        return (
+          <RepoList
+            data={data}
+            onLoadMore={() => {
+              if (
+                totalCurrent < totalCount &&
+                (newCursor !== null || newCursor !== '')
+              ) {
+                fetchMore({
+                  query: getCursorOrgData,
+                  variables: { cursor: newCursor },
+                  updateQuery: (previousResult, { fetchMoreResult }) => {
+                    const newTotalCount =
+                      fetchMoreResult.organization.repositories.totalCount;
+                    const newPageInfo =
+                      fetchMoreResult.organization.repositories.pageInfo;
+                    const previousEdges =
+                      previousResult.organization.repositories.edges;
+                    const newEdges =
+                      fetchMoreResult.organization.repositories.edges;
+
+                    return {
+                      organization: {
+                        ...previousResult.organization,
+                        ...fetchMoreResult.organization,
+                        repositories: {
+                          // Add typename for any type you are planning to update otherwise
+                          // apollo client complains of __typename missing
+                          __typename:
+                            previousResult.organization.repositories.__typename,
+                          totalCount: newTotalCount,
+                          pageInfo: newPageInfo,
+                          edges: [...previousEdges, ...newEdges]
+                        }
+                      }
+                    };
+                  }
+                });
+              }
+            }}
+          />
+        );
+      }}
+    </Query>
+  );
+};
+
+export default RepoContainer;

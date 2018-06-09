@@ -3,7 +3,7 @@ import { Container, Jumbotron } from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-import RepoList from './components/repoList';
+import RepoContainer from './components/repoContainer';
 
 class App extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class App extends Component {
             </p>
           </Container>
         </Jumbotron>
-        <RepoList />
+        <RepoContainer />
       </div>
     );
   }
