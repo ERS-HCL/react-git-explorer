@@ -123,16 +123,19 @@ const RepoContainer = props => {
         const totalCurrent = (data.organization)?data.organization.repositories.edges.length:0;
         const newCursor = (data.organization)?data.organization.repositories.pageInfo.endCursor:'';
         this.showSpinner = (loading)?loading:false;
+        this.fetchInProgress=false;
         return (
           <div>
           <RepoList
             data={data}
             onLoadMore={() => {
-             
+              if (this.fetchInProgress)
+                return
               if (
                 totalCurrent < totalCount &&
                 (newCursor !== null || newCursor !== '')
               ) {
+                this.fetchInProgress=true;
                 fetchMore({
                   query: getCursorOrgData,
                   variables: { cursor: newCursor },
@@ -164,6 +167,7 @@ const RepoContainer = props => {
                   }
                 });
               } else {
+                this.fetchInProgress=false;
                 this.showSpinner=false;
               }
             }}
