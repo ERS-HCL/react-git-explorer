@@ -112,25 +112,23 @@ const getOrgData = gql`
 
 
 const RepoContainer = props => {
+
   return (
-    <Query query={getOrgData}>
+    <Query query={getOrgData} >
       {({ loading, error, data, fetchMore }) => {
-        if (loading)
-          return (
-            <Container>
-              <i className="fa fa-refresh fa-spin my-spinner" />
-            </Container>
-          ); 
+    
         if (error) return `Error! ${error.message}`;
         
-        const totalCount = data.organization.repositories.totalCount;
-        const totalCurrent = data.organization.repositories.edges.length;
-        const newCursor = data.organization.repositories.pageInfo.endCursor;
-
+        const totalCount = (data.organization)?data.organization.repositories.totalCount:0;
+        const totalCurrent = (data.organization)?data.organization.repositories.edges.length:0;
+        const newCursor = (data.organization)?data.organization.repositories.pageInfo.endCursor:'';
+        this.showSpinner = (loading)?loading:false;
         return (
+          <div>
           <RepoList
             data={data}
             onLoadMore={() => {
+             
               if (
                 totalCurrent < totalCount &&
                 (newCursor !== null || newCursor !== '')
@@ -165,9 +163,15 @@ const RepoContainer = props => {
                     };
                   }
                 });
+              } else {
+                this.showSpinner=false;
               }
             }}
           />
+          {(totalCurrent > 0 && totalCurrent < totalCount) || this.showSpinner?<Container>
+        <i className="fa fa-refresh fa-spin my-spinner" />
+      </Container>:<div></div>}
+          </div>
         );
       }}
     </Query>

@@ -37,10 +37,10 @@ class RepoList extends Component {
 
   render() {
     const { data } = this.props;
-     
+    const cards=(data.organization)? <GitCards repositories={data.organization.repositories} />:<div></div>
     return (
       <Container>
-        <GitCards repositories={data.organization.repositories} />
+        {cards}
       </Container>
     );
   }
