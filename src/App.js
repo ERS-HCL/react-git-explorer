@@ -38,7 +38,7 @@ class App extends Component {
             </Nav>
           </Collapse>
         </Navbar> */}
-        <Jumbotron fluid className="bg-muted jumbo">
+        <Jumbotron fluid className="jumbo">
           <Container fluid>
             <h1 className="display-3">ERS HCL Github Stats</h1>
             <p className="lead">
