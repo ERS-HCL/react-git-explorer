@@ -29,7 +29,7 @@ class RepoList extends Component {
     var clientHeight =
       document.documentElement.clientHeight || window.innerHeight;
     var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-  //  console.log(scrollTop, scrollHeight, clientHeight, scrolledToBottom);
+   // console.log(scrollTop, scrollHeight, clientHeight, scrolledToBottom);
     if (scrolledToBottom) {
       this.props.onLoadMore();
     }
