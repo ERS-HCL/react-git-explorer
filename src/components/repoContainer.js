@@ -2,7 +2,8 @@ import React from 'react';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 import RepoList from './repoList';
-import { Container } from 'reactstrap';
+import './repoContainer.css';
+import Spinner from './spinner';
 const getCursorOrgData = gql`
   query($cursor: String) {
     organization(login: "ERS-HCL") {
@@ -129,8 +130,9 @@ const RepoContainer = props => {
           <RepoList
             data={data}
             onLoadMore={() => {
-              if (this.fetchInProgress)
+              if (this.fetchInProgress) {
                 return
+              }
               if (
                 totalCurrent < totalCount &&
                 (newCursor !== null || newCursor !== '')
@@ -172,9 +174,7 @@ const RepoContainer = props => {
               }
             }}
           />
-          {(totalCurrent > 0 && totalCurrent < totalCount) || this.showSpinner?<Container>
-        <i className="fa fa-refresh fa-spin my-spinner" />
-      </Container>:<div></div>}
+          <Spinner enabled={(totalCurrent > 0 && totalCurrent < totalCount) || this.showSpinner} />
           </div>
         );
       }}
