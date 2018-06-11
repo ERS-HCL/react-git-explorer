@@ -34,7 +34,7 @@ REACT_APP_GITKEEPER_URI=https://xxxxx-gatekeeper.herokuapp.com
 
 * Note: Avoid adding '/' suffix in the REACT_APP_GITKEEPER_URI
 
-* For more details, read the excellent blog from Julian that describes the OAuth process with [Gatekeeper] (https://www.graphql.college/implementing-github-oauth-flow-in-react/)
+* For more details, read the excellent blog from Julian that describes the OAuth process with [Gatekeeper](https://www.graphql.college/implementing-github-oauth-flow-in-react/)
 
 ## run
 
