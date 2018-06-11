@@ -1,0 +1,14 @@
+.my-star {
+    display: flex;
+    padding: 5px;
+    font-size: 1em;
+    color: black;
+}
+
+.my-icon {
+    margin-left: 5px;
+}
+
+.my-decorator {
+    font: em;
+}

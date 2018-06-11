@@ -11,6 +11,7 @@ import {
   ListGroup,
   ListGroupItem
 } from 'reactstrap';
+import GitDecorators from '../gitDecorators/gitDecorators';
 import './gitCards.css';
 
 /**
@@ -80,6 +81,7 @@ const GitCards = props => {
           <strong> {data.name} </strong>
         </CardTitle>
         <CardSubtitle>
+          <GitDecorators stars={data.stars} forks={data.forkCount} license={data.license} created={data.createdAt} pushed={data.pushedAt}/>
           <Badge color="success" className="my-badge">{data.language.name}</Badge>
         </CardSubtitle>
         <CardText>
