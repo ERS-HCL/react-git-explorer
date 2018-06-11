@@ -17,12 +17,12 @@ This application relies on the Github OAuth flow and uses the [Gatekeeper](https
 * Register this app as an OAuth App for github, specify the application url and redirect url and note down the client Id and client secret  
 * Follow the instructions in the Gatekeeper project and deploy the Gatekeeper on a cloud platform like Heroku or Azure with the app configuration details.
 
-* Add the app github OAuth Client ID, Redirect URI and GitKeeper URI to .env.development|production.local
+* Add the app github OAuth Client ID, Redirect URI and GATEKEEPER URI to .env.development|production.local
 
 ```
 REACT_APP_CLIENT_ID=<GITHUB OAUTH TOKEN>
 REACT_APP_REDIRECT_URI=<DEPLOYED APP URI>
-REACT_APP_GATEKEEPER_URI=<GITKEEPER HEROKU APP URI>
+REACT_APP_GATEKEEPER_URI=<GATEKEEPER HEROKU APP URI>
 ```
 
 Sample URIs
