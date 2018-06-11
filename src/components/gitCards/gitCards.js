@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Fade,
   Badge,
   Card,
   CardBody,
@@ -33,7 +34,7 @@ const GitCards = props => {
 
   const getTopics = edges => {
     return edges.map(edge => (
-      <Badge color="primary" pill key={edge.node.topic.name}>
+      <Badge color="primary" pill key={edge.node.topic.name} className="pills">
         {edge.node.topic.name}
       </Badge>
     ));
@@ -46,7 +47,7 @@ const GitCards = props => {
           ? edge.node.name
           : edge.node.login;
       return (
-        <ListGroupItem key={name}>
+        <ListGroupItem key={name} className="my-contributors">
           <img src={edge.node.avatarUrl} alt="Avatar" className="avatar" />{' '}
           <small>{name}</small>
         </ListGroupItem>
@@ -72,24 +73,26 @@ const GitCards = props => {
   });
 
   const repoCards = reposdata.map(data => (
-    <Card key={data.name}>
+    <Fade in={true}  key={data.name}>
+    <Card className="my-card">
       <CardBody>
         <CardTitle>
           <strong> {data.name} </strong>
         </CardTitle>
         <CardSubtitle>
-          <Badge color="dark">{data.language.name}</Badge>
+          <Badge color="success" className="my-badge">{data.language.name}</Badge>
         </CardSubtitle>
         <CardText>
           <span dangerouslySetInnerHTML={{ __html: data.descriptionHTML }} />
         </CardText>
         <CardText>{data.topics}</CardText>
         <ListGroup>{data.contributors}</ListGroup>
-        <a href={data.url} target="_blank">
+        <a href={data.url} target="_blank" className="my-anchor">
           <small>GITHUB</small>
         </a>
       </CardBody>
     </Card>
+    </Fade>
   ));
 
   return <CardColumns>{repoCards}</CardColumns>;

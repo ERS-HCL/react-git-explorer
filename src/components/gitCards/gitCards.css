@@ -1,10 +1,38 @@
 .avatar {
     vertical-align: middle;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
 }
 
 .pills {
-    padding-left: 10px;
+    font-style: normal;
+    font-weight: lighter;
+    margin-left: 5px;
 }
+
+.my-contributors {
+    background-color: #e0edf4;
+    border-left: 5px solid #3eb3f6;
+}
+
+.my-card {
+    display: inline-block;
+    font-size: .95em;
+    box-shadow: 0px 0px 2px lightgray;
+}
+
+.my-badge {
+    font-weight: lighter;
+    text-transform: uppercase;
+}
+
+.my-anchor {
+    padding: 10px;
+    text-decoration: none;
+    background: #fff;
+    border-radius: 3px;
+    color: rgb(0, 110, 255);
+    font-weight: bold;
+    float: right;
+  }
