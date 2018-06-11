@@ -27,9 +27,12 @@ REACT_APP_GITKEEPER_URI=<GITKEEPER HEROKU APP URI>
 
 Sample URIs
 ```
-REACT_APP_REDIRECT_URI=https://affectionate-keller-d4f61b.netlify.com/
-REACT_APP_GITKEEPER_URI=https://gitexplorer-gatekeeper.herokuapp.com
+REACT_APP_CLIENT_ID=xxxxxxxxxxxxxxx
+REACT_APP_REDIRECT_URI=https://xxxxxx.netlify.com/
+REACT_APP_GITKEEPER_URI=https://xxxxx-gatekeeper.herokuapp.com
 ```
+
+* Note: Avoid adding '/' suffix in the REACT_APP_GITKEEPER_URI
 
 * For more details, read the excellent blog from Julian that describes the OAuth process with [Gatekeeper] (https://www.graphql.college/implementing-github-oauth-flow-in-react/)
 
