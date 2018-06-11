@@ -27,7 +27,7 @@ class App extends Component {
     if (code) {
       this.setState({ status: STATUS.LOADING });
       fetch(
-        `${process.env.REACT_APP_GITKEEPER_URI}/authenticate/${code}`
+        `${process.env.REACT_APP_GATEKEEPER_URI}/authenticate/${code}`
       )
         .then(response => response.json())
         .then(({ token }) => {

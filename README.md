@@ -22,17 +22,17 @@ This application relies on the Github OAuth flow and uses the [Gatekeeper](https
 ```
 REACT_APP_CLIENT_ID=<GITHUB OAUTH TOKEN>
 REACT_APP_REDIRECT_URI=<DEPLOYED APP URI>
-REACT_APP_GITKEEPER_URI=<GITKEEPER HEROKU APP URI>
+REACT_APP_GATEKEEPER_URI=<GITKEEPER HEROKU APP URI>
 ```
 
 Sample URIs
 ```
 REACT_APP_CLIENT_ID=xxxxxxxxxxxxxxx
 REACT_APP_REDIRECT_URI=https://xxxxxx.netlify.com/
-REACT_APP_GITKEEPER_URI=https://xxxxx-gatekeeper.herokuapp.com
+REACT_APP_GATEKEEPER_URI=https://xxxxx-gatekeeper.herokuapp.com
 ```
 
-* Note: Avoid adding '/' suffix in the REACT_APP_GITKEEPER_URI
+* Note: Avoid adding '/' suffix in the REACT_APP_GATEKEEPER_URI
 
 * For more details, read the excellent blog from Julian that describes the OAuth process with [Gatekeeper](https://www.graphql.college/implementing-github-oauth-flow-in-react/)
 
