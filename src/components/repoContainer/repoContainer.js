@@ -1,120 +1,14 @@
 import React from 'react';
-import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 import { Container, Alert } from 'reactstrap';
-import RepoList from './repoList';
-import './repoContainer.css';
-import Spinner from './spinner';
 import { CSVLink } from 'react-csv';
+import RepoList from '../repoList/repoList';
+import Spinner from '../spinner/spinner';
+import { GET_CURSOR_ORG_DATA, GET_ORG_DATA } from '../../graphql/queries';
+import './repoContainer.css';
+
 const moment = require('moment-timezone');
 moment.tz.setDefault('UTC');
-
-const getCursorOrgData = gql`
-  query($cursor: String) {
-    organization(login: "ERS-HCL") {
-      repositories(first: 50, after: $cursor) {
-        totalCount
-        pageInfo {
-          endCursor
-          __typename
-        }
-        edges {
-          cursor
-          node {
-            name
-            descriptionHTML
-            license
-            stargazers(first: 50) {
-              totalCount
-            }
-            repositoryTopics(first: 20) {
-              edges {
-                node {
-                  topic {
-                    name
-                  }
-                }
-              }
-            }
-            forkCount
-            isFork
-            createdAt
-            updatedAt
-            pushedAt
-            homepageUrl
-            url
-            primaryLanguage {
-              name
-              color
-            }
-            collaborators(first: 50, affiliation: DIRECT) {
-              edges {
-                node {
-                  name
-                  login
-                  avatarUrl
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-const getOrgData = gql`
-  {
-    organization(login: "ERS-HCL") {
-      repositories(first: 50) {
-        totalCount
-        pageInfo {
-          endCursor
-          __typename
-        }
-        edges {
-          node {
-            name
-            descriptionHTML
-            license
-            stargazers(first: 50) {
-              totalCount
-            }
-            repositoryTopics(first: 20) {
-              edges {
-                node {
-                  topic {
-                    name
-                  }
-                }
-              }
-            }
-            forkCount
-            isFork
-            createdAt
-            updatedAt
-            pushedAt
-            homepageUrl
-            url
-            primaryLanguage {
-              name
-              color
-            }
-            collaborators(first: 50, affiliation: DIRECT) {
-              edges {
-                node {
-                  name
-                  login
-                  avatarUrl
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
 
 const RepoContainer = props => {
   const getContributors = contributors => {
@@ -145,6 +39,9 @@ const RepoContainer = props => {
         };
   };
 
+  /**
+   * Tranform the github data to a csv compiliant format
+   */
   const handleDownload = data => {
     return data.edges.map(repo => {
       return {
@@ -165,16 +62,19 @@ const RepoContainer = props => {
   };
 
   return (
-    <Query query={getOrgData}>
+    <Query query={GET_ORG_DATA}>
       {({ loading, error, data, fetchMore }) => {
         if (error) return `Error! ${error.message}`;
 
+        // Total available org repositories
         const totalCount = data.organization
           ? data.organization.repositories.totalCount
           : 0;
+        // Currently available org repositories
         const totalCurrent = data.organization
           ? data.organization.repositories.edges.length
           : 0;
+        // New Cursor
         const newCursor = data.organization
           ? data.organization.repositories.pageInfo.endCursor
           : '';
@@ -187,6 +87,8 @@ const RepoContainer = props => {
             <RepoList
               data={data}
               onLoadMore={() => {
+                // Multiple scroll up and down can cause duplicate calls
+                // Ignore additional calls while there is a fetch in progress
                 if (this.fetchInProgress) {
                   return;
                 }
@@ -196,7 +98,7 @@ const RepoContainer = props => {
                 ) {
                   this.fetchInProgress = true;
                   fetchMore({
-                    query: getCursorOrgData,
+                    query: GET_CURSOR_ORG_DATA,
                     variables: { cursor: newCursor },
                     updateQuery: (previousResult, { fetchMoreResult }) => {
                       const newTotalCount =
@@ -220,6 +122,7 @@ const RepoContainer = props => {
                                 .__typename,
                             totalCount: newTotalCount,
                             pageInfo: newPageInfo,
+                            // Append new repositories to the end
                             edges: [...previousEdges, ...newEdges]
                           }
                         }
@@ -243,8 +146,13 @@ const RepoContainer = props => {
               />
               {totalCount > 0 && (
                 <Alert color="light text-primary" className="my-alert">
-                  {' '}
-                  {totalCurrent}/{totalCount}
+                  <i>
+                    <small>
+                      <strong>
+                        {totalCurrent}/{totalCount}
+                      </strong>
+                    </small>
+                  </i>
                   <CSVLink
                     className="my-download"
                     data={handleDownload(data.organization.repositories)}

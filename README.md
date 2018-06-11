@@ -12,10 +12,18 @@ yarn install
 
 ## environment setup
 
-Add the github token env variable to .env.development.local
+Add the app github OAuth Client ID, Redirect URI and GitKeeper URI to .env.development.local
 
 ```
-REACT_APP_GITHUB_TOKEN=<GITHUB OAUTH TOKEN>
+REACT_APP_CLIENT_ID=<GITHUB OAUTH TOKEN>
+REACT_APP_REDIRECT_URI=<DEPLOYED APP URI>
+REACT_APP_GITKEEPER_URI=<GITKEEPER HEROKU APP URI>
+```
+
+Sample URIs
+```
+REACT_APP_REDIRECT_URI=https://affectionate-keller-d4f61b.netlify.com/
+REACT_APP_GITKEEPER_URI=https://gitexplorer-gatekeeper.herokuapp.com
 ```
 
 ## run

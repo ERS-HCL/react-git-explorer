@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import GitCards from './gitCards';
 import { Container } from 'reactstrap';
+import GitCards from '../gitCards/gitCards';
 import './repoList.css';
 
+/**
+ * Display the github repository data in a Cards based grid view
+ */
 class RepoList extends Component {
   constructor(props, context) {
     super(props, context);

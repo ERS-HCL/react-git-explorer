@@ -1,20 +1,24 @@
 import React from 'react';
 import {
+  Badge,
   Card,
-  CardTitle,
-  CardText,
+  CardBody,
   CardColumns,
   CardSubtitle,
-  CardBody,
-  Badge,
+  CardText,
+  CardTitle,
   ListGroup,
   ListGroupItem
 } from 'reactstrap';
 import './gitCards.css';
 
+/**
+ * Git Cards Component displays github repository data in a cards view
+ */
 const GitCards = props => {
   const { repositories } = props;
 
+  // Extract primary language details
   const getPrimaryLanguage = primaryLanguage => {
     return primaryLanguage
       ? {
@@ -79,80 +83,16 @@ const GitCards = props => {
         <CardText>
           <span dangerouslySetInnerHTML={{ __html: data.descriptionHTML }} />
         </CardText>
-        <CardText>
-          {data.topics}
-        </CardText>
-
-          <ListGroup>{data.contributors}</ListGroup>
-            <a href={data.url} target="_blank"><small>GITHUB</small></a>
+        <CardText>{data.topics}</CardText>
+        <ListGroup>{data.contributors}</ListGroup>
+        <a href={data.url} target="_blank">
+          <small>GITHUB</small>
+        </a>
       </CardBody>
     </Card>
   ));
 
-  return (
-    <CardColumns>{repoCards}</CardColumns>
-
-    /*  <CardColumns>
-      <Card>
-        <CardBody>
-          <CardTitle>
-            <strong> {item}</strong>
-          </CardTitle>
-          <CardSubtitle><Badge color="dark">Java</Badge></CardSubtitle>
-          <CardText>Project Description</CardText>
-          <CardText>
-            <div>
-              <Badge color="primary" pill>
-                Java
-              </Badge>
-              <Badge color="primary" pill>
-                Microservices
-              </Badge>
-              <Badge color="primary" pill>
-                Success
-              </Badge>
-              <Badge color="primary" pill>
-                Danger
-              </Badge>
-              <Badge color="primary" pill>
-                Warning
-              </Badge>
-              <Badge color="primary" pill>
-                Info
-              </Badge>
-              <Badge color="primary" pill>
-                Light
-              </Badge>
-              <Badge color="primary" pill>
-                Dark
-              </Badge>
-            </div>
-          </CardText>
-          <CardText>
-            <ListGroup>
-              <ListGroupItem>
-                <img
-                  src="https://loremflickr.com/50/50"
-                  alt="Avatar"
-                  class="avatar"
-                />{' '}
-                <small>Contributor One</small>
-              </ListGroupItem>
-              <ListGroupItem>
-                <img
-                  src="https://loremflickr.com/50/50"
-                  alt="Avatar"
-                  class="avatar"
-                />{' '}
-                <small>Contributor Two</small>
-              </ListGroupItem>
-            </ListGroup>
-          </CardText>
-          <Button>GITHUB</Button>
-        </CardBody>
-      </Card>
-    </CardColumns> */
-  );
+  return <CardColumns>{repoCards}</CardColumns>;
 };
 
 export default GitCards;
