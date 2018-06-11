@@ -19,6 +19,7 @@ class RepoList extends Component {
   }
 
   handleOnScroll() {
+    // Solution based on
     // http://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom
     var scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
@@ -29,7 +30,7 @@ class RepoList extends Component {
     var clientHeight =
       document.documentElement.clientHeight || window.innerHeight;
     var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-   // console.log(scrollTop, scrollHeight, clientHeight, scrolledToBottom);
+    // console.log(scrollTop, scrollHeight, clientHeight, scrolledToBottom);
     if (scrolledToBottom) {
       this.props.onLoadMore();
     }

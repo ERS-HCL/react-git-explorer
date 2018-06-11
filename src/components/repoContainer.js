@@ -235,6 +235,8 @@ const RepoContainer = props => {
             <Container>
               <Spinner
                 enabled={
+                  // Show spinner based on loading attribute and
+                  // current fetch status
                   (totalCurrent > 0 && totalCurrent < totalCount) ||
                   this.showSpinner
                 }
