@@ -4,6 +4,10 @@
   * To use the apollo graphql client to extract github data via its GraphQL APIs
   * Infinite scroll where github project cards will be displayed.
 
+## Live Demo
+
+* See the live [Demo](https://affectionate-keller-d4f61b.netlify.com)
+
 ## setup
 
 ```bash
