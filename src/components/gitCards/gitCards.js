@@ -77,8 +77,8 @@ const GitCards = props => {
     <Fade in={true}  key={data.name}>
     <Card className="my-card">
       <CardBody>
-        <CardTitle>
-          <strong> {data.name} </strong>
+        <CardTitle >
+          {data.name}
         </CardTitle>
         <CardSubtitle>
           <GitDecorators stars={data.stars} forks={data.forkCount} license={data.license} created={data.createdAt} pushed={data.pushedAt}/>

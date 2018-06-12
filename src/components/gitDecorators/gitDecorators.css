@@ -1,14 +1,15 @@
 .my-star {
     display: flex;
     padding: 5px;
-    font-size: 1em;
+    font-size: .75em;
     color: black;
 }
 
 .my-icon {
     margin-left: 5px;
+    color:  black;
 }
 
 .my-decorator {
-    font: em;
+    font: .75em;
 }

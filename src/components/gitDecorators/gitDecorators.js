@@ -9,7 +9,7 @@ moment.tz.setDefault('UTC');
 const GitDecorators = props => {
   const stars =
     props.stars && props.stars !== 0 ? (
-      <div className="my-decorator">
+      <div className="my-decorator text-muted">
         <i className="fas fa-star my-icon" /> {props.stars}
       </div>
     ) : (
@@ -17,21 +17,21 @@ const GitDecorators = props => {
     );
   const forks =
     props.forks && props.forks !== 0 ? (
-      <div>
+      <div className="my-decorator text-muted">
         <i className="fas fa-code-branch my-icon" /> {props.forks}
       </div>
     ) : (
       undefined
     );
   const license = props.license ? (
-    <div>
+    <div className="my-decorator text-muted">
       <i className="fas fa-address-card my-icon" /> {props.license}
     </div>
   ) : (
     undefined
   );
   const creationDate = props.created ? (
-    <div>
+    <div className="my-decorator text-muted">
       <i className="fas fa-calendar my-icon" />{' '}
       {moment.utc(props.created).format('Do MMM YY')}
     </div>
@@ -39,7 +39,7 @@ const GitDecorators = props => {
     undefined
   );
   const pushedDate = props.pushed ? (
-    <div>
+    <div className="my-decorator text-muted">
       <i className="fas fa-edit my-icon" /> {moment.utc(props.pushed).fromNow()}
     </div>
   ) : (

@@ -1,7 +1,7 @@
 .avatar {
     vertical-align: middle;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
 }
 
@@ -18,12 +18,13 @@
 
 .my-card {
     display: inline-block;
-    font-size: .95em;
+    font-size: .85em;
     box-shadow: 0px 0px 2px lightgray;
 }
 
 .my-badge {
     font-weight: lighter;
+    font-size: .75em;
     text-transform: uppercase;
 }
 
