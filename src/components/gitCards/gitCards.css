@@ -14,6 +14,7 @@
 .my-contributors {
     background-color: #e0edf4;
     border-left: 5px solid #3eb3f6;
+    box-shadow: 0px 2.5px 2.5px lightslategray;
 }
 
 .my-card {
