@@ -8,6 +8,14 @@
 
 * See the live [Demo](https://affectionate-keller-d4f61b.netlify.com)
 
+## Blog Post
+
+* Read about the details of the implementation in the [published blog on Medium.com](https://medium.com/@tksukhu/get-your-github-organization-statistics-using-graphql-apollo-client-and-react-35839f580acf)
+
+## Technology Approach
+
+![tech approach](./public/react-git-explorer.png)
+
 ## setup
 
 ```bash
