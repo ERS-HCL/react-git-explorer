@@ -59,7 +59,14 @@ class RepoList extends Component {
     });
   };
 
-  statusBar = (totalCount, totalCurrent, csvFileName, data, showSpinner, loadButton) => {
+  statusBar = (
+    totalCount,
+    totalCurrent,
+    csvFileName,
+    data,
+    showSpinner,
+    loadButton
+  ) => {
     return (
       <Container>
         <Alert color="light text-secondary" className="my-alert">
@@ -71,24 +78,29 @@ class RepoList extends Component {
               showSpinner || this.state.loading
             }
           />
-          {totalCount > 0 && (
-            <small>
-              <strong>
-                {totalCurrent}/{totalCount}
-              </strong>
-            </small>
-          )}
-          {loadButton && totalCount !== totalCurrent && (
-            <Button
-              color="light"
-              className="btn btn-secondary my-forward"
-              size="sm"
-              onClick={() => this.handleLoadMore()}
-            >
-              <i className="fas fa-forward my-forward" /> <small>MORE</small>
-            </Button>
-          )}
-          {totalCount > 0 &&
+
+          {!this.state.loading &&
+            totalCount > 0 && (
+              <small>
+                <strong>
+                  {totalCurrent}/{totalCount}
+                </strong>
+              </small>
+            )}
+          {loadButton &&
+            !this.state.loading &&
+            totalCount !== totalCurrent && (
+              <Button
+                color="light"
+                className="btn btn-secondary my-forward"
+                size="sm"
+                onClick={() => this.handleLoadMore()}
+              >
+                <i className="fas fa-forward my-forward" /> <small>MORE</small>
+              </Button>
+            )}
+          {!this.state.loading &&
+            totalCount > 0 &&
             totalCount === totalCurrent && (
               <CSVLink
                 className="my-download"

@@ -1,21 +1,19 @@
 .my-spinner {
-    font-size:1.75em;
-    margin-left: 10px;
-    margin-right: 10px;
-    align-self: center;
-    align-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
+  font-size: 1.75em;
+  position: relative;
+  align-self: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
 }
 
 .spinner-black {
-    font-size:1.75em;
-    margin-left: 10px;
-    margin-right: 10px;
-    color: black;
-    align-self: center;
-    align-content: center;
-    align-items: center;
-    text-align: center;
+  font-size: 1em;
+  position: relative;
+  color: black;
+  align-self: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
 }
