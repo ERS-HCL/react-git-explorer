@@ -24,15 +24,17 @@ class RepoList extends Component {
   handleOnScroll() {
     // Solution based on
     // http://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom
-    var scrollTop =
+    const scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
       document.body.scrollTop;
-    var scrollHeight =
+    const scrollHeight =
       (document.documentElement && document.documentElement.scrollHeight) ||
       document.body.scrollHeight;
-    var clientHeight =
+    const clientHeight =
       document.documentElement.clientHeight || window.innerHeight;
-    var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+    const threshold = 100;
+    const scrolledToBottom =
+      Math.ceil(scrollTop + clientHeight + threshold) >= scrollHeight;
     // console.log(scrollTop, scrollHeight, clientHeight, scrolledToBottom);
     if (scrolledToBottom) {
       this.props.onLoadMore();
@@ -41,12 +43,12 @@ class RepoList extends Component {
 
   render() {
     const { data } = this.props;
-    const cards=(data.organization)? <GitCards repositories={data.organization.repositories} />:<div></div>
-    return (
-      <Container>
-        {cards}
-      </Container>
+    const cards = data.organization ? (
+      <GitCards repositories={data.organization.repositories} />
+    ) : (
+      <div />
     );
+    return <Container>{cards}</Container>;
   }
 }
 
