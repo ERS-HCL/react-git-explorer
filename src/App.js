@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Jumbotron, Nav, NavLink, NavItem, Media } from 'reactstrap';
+import { Container, Jumbotron, Nav, NavLink, NavItem } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import RepoContainer from './components/repoContainer/repoContainer';

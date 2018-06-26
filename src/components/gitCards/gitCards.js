@@ -74,26 +74,32 @@ const GitCards = props => {
   });
 
   const repoCards = reposdata.map(data => (
-    <Fade in={true}  key={data.name}>
-    <Card className="my-card">
-      <CardBody>
-        <CardTitle >
-          {data.name}
-        </CardTitle>
-        <CardSubtitle>
-          <GitDecorators stars={data.stars} forks={data.forkCount} license={data.license} created={data.createdAt} pushed={data.pushedAt}/>
-          <Badge color="success" className="my-badge">{data.language.name}</Badge>
-        </CardSubtitle>
-        <CardText>
-          <span dangerouslySetInnerHTML={{ __html: data.descriptionHTML }} />
-        </CardText>
-        <CardText>{data.topics}</CardText>
-        <ListGroup>{data.contributors}</ListGroup>
-        <a href={data.url} target="_blank" className="my-anchor">
-          <small>GITHUB</small>
-        </a>
-      </CardBody>
-    </Card>
+    <Fade in={true} key={data.name}>
+      <Card className="my-card">
+        <CardBody>
+          <CardTitle>{data.name}</CardTitle>
+          <CardSubtitle>
+            <GitDecorators
+              stars={data.stars}
+              forks={data.forkCount}
+              license={data.license}
+              created={data.createdAt}
+              pushed={data.pushedAt}
+            />
+            <Badge color="success" className="my-badge">
+              {data.language.name}
+            </Badge>
+          </CardSubtitle>
+          <CardText>
+            <span dangerouslySetInnerHTML={{ __html: data.descriptionHTML }} />
+          </CardText>
+          <CardText>{data.topics}</CardText>
+          <ListGroup>{data.contributors}</ListGroup>
+          <a href={data.url} target="_blank" className="my-anchor">
+            <small>GITHUB</small>
+          </a>
+        </CardBody>
+      </Card>
     </Fade>
   ));
 

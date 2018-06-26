@@ -42,14 +42,12 @@ const RepoContainer = props => {
   const statusBar = (totalCount, totalCurrent, csvFileName, data) => (
     <Container>
       {totalCount > 0 && (
-        <Alert color="light text-primary" className="my-alert">
-          <i>
-            <small>
-              <strong>
-                {totalCurrent}/{totalCount}
-              </strong>
-            </small>
-          </i>
+        <Alert color="light text-secondary" className="my-alert">
+          <small>
+            <strong>
+              {totalCurrent}/{totalCount}
+            </strong>
+          </small>
           <CSVLink
             className="my-download"
             data={handleDownload(data.organization.repositories)}

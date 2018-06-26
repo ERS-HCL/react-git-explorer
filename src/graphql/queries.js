@@ -3,7 +3,7 @@ import { gql } from 'apollo-boost';
 const GET_CURSOR_ORG_DATA = gql`
   query($cursor: String) {
     organization(login: "ERS-HCL") {
-      repositories(first: 50, after: $cursor) {
+      repositories(first: 50, after: $cursor, orderBy: { field: PUSHED_AT, direction: DESC}) {
         totalCount
         pageInfo {
           endCursor
@@ -57,7 +57,7 @@ const GET_CURSOR_ORG_DATA = gql`
 const GET_ORG_DATA = gql`
   {
     organization(login: "ERS-HCL") {
-      repositories(first: 50) {
+      repositories(first: 50,orderBy: { field: PUSHED_AT, direction: DESC}) {
         totalCount
         pageInfo {
           endCursor
