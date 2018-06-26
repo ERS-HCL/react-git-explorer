@@ -59,7 +59,7 @@ class RepoList extends Component {
     });
   };
 
-  statusBar = (totalCount, totalCurrent, csvFileName, data, showSpinner) => {
+  statusBar = (totalCount, totalCurrent, csvFileName, data, showSpinner, loadButton) => {
     return (
       <Container>
         <Alert color="light text-secondary" className="my-alert">
@@ -78,7 +78,7 @@ class RepoList extends Component {
               </strong>
             </small>
           )}
-          {totalCount !== totalCurrent && (
+          {loadButton && totalCount !== totalCurrent && (
             <Button
               color="light"
               className="btn btn-secondary my-forward"
@@ -170,7 +170,8 @@ class RepoList extends Component {
           totalCurrent,
           csvFileName,
           data,
-          showSpinner
+          showSpinner,
+          true
         )}
         <Container>{cards}</Container>
 
@@ -180,7 +181,8 @@ class RepoList extends Component {
             totalCurrent,
             csvFileName,
             data,
-            showSpinner
+            showSpinner,
+            false
           )}
       </div>
     );
