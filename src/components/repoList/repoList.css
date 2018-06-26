@@ -1,4 +1,36 @@
+.my-hr {
+  background-color: white;
+}
 
+.my-button {
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+}
 
+.my-download {
+  float: right;
+  align-self: auto;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 15px;
+  color: gray;
+}
 
+.my-forward {
+  color: gray;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: 10px;
+}
 
+.my-alert {
+  display: block;
+  box-shadow: 1px 4px grey;
+}

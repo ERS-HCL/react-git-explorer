@@ -86,7 +86,7 @@ const GitCards = props => {
               created={data.createdAt}
               pushed={data.pushedAt}
             />
-            <Badge color="success" className="my-badge">
+            <Badge color="dark" className="my-badge">
               {data.language.name}
             </Badge>
           </CardSubtitle>

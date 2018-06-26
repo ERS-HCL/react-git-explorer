@@ -1,40 +1,40 @@
 .avatar {
-    vertical-align: middle;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
+  vertical-align: middle;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
 }
 
 .pills {
-    font-style: normal;
-    font-weight: lighter;
-    margin-left: 5px;
+  font-style: normal;
+  font-weight: lighter;
+  margin-left: 5px;
 }
 
 .my-contributors {
-    background-color: #e0edf4;
-    border-left: 5px solid #3eb3f6;
-    box-shadow: 0px 2.5px 2.5px lightslategray;
+  background-color: #e0edf4;
+  border-left: 5px solid #3eb3f6;
+  box-shadow: 0px 2.5px 2.5px lightslategray;
 }
 
 .my-card {
-    display: inline-block;
-    font-size: .85em;
-    box-shadow: 0px 0px 2px lightgray;
+  display: inline-block;
+  font-size: 0.85em;
+  box-shadow: 1px 2px 0px grey;
 }
 
 .my-badge {
-    font-weight: lighter;
-    font-size: .75em;
-    text-transform: uppercase;
+  font-weight: lighter;
+  font-size: 0.75em;
+  text-transform: uppercase;
 }
 
 .my-anchor {
-    padding: 10px;
-    text-decoration: none;
-    background: #fff;
-    border-radius: 3px;
-    color: rgb(0, 110, 255);
-    font-weight: bold;
-    float: right;
-  }
+  padding: 10px;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 3px;
+  color: rgb(0, 110, 255);
+  font-weight: bold;
+  float: right;
+}

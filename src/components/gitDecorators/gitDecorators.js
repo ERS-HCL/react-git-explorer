@@ -10,7 +10,7 @@ const GitDecorators = props => {
   const stars =
     props.stars && props.stars !== 0 ? (
       <div className="my-decorator text-muted">
-        <i className="fas fa-star my-icon" /> {props.stars}
+        <i className="fas fa-star my-icon text-success" /> {props.stars}
       </div>
     ) : (
       undefined
@@ -32,7 +32,7 @@ const GitDecorators = props => {
   );
   const creationDate = props.created ? (
     <div className="my-decorator text-muted">
-      <i className="fas fa-calendar my-icon" />{' '}
+      <i className="fas fa-calendar my-icon text-info" />{' '}
       {moment.utc(props.created).format('Do MMM YY')}
     </div>
   ) : (
@@ -40,7 +40,8 @@ const GitDecorators = props => {
   );
   const pushedDate = props.pushed ? (
     <div className="my-decorator text-muted">
-      <i className="fas fa-edit my-icon" /> {moment.utc(props.pushed).fromNow()}
+      <i className="fas fa-edit my-icon text-danger" />{' '}
+      {moment.utc(props.pushed).fromNow()}
     </div>
   ) : (
     undefined

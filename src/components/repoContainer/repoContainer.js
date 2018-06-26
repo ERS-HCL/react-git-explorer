@@ -1,9 +1,6 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import { Container, Alert } from 'reactstrap';
-import { CSVLink } from 'react-csv';
 import RepoList from '../repoList/repoList';
-import Spinner from '../spinner/spinner';
 import { GET_CURSOR_ORG_DATA, GET_ORG_DATA } from '../../graphql/queries';
 import './repoContainer.css';
 
@@ -11,77 +8,6 @@ const moment = require('moment-timezone');
 moment.tz.setDefault('UTC');
 
 const RepoContainer = props => {
-  const getContributors = contributors => {
-    return contributors
-      .map(edge => {
-        return edge.node.name && edge.node.name.trim() !== ''
-          ? edge.node.name
-          : edge.node.login;
-      })
-      .join(',');
-  };
-
-  const getTopics = edges => {
-    return edges.map(edge => {
-      return edge.node.topic.name;
-    });
-  };
-
-  const getPrimaryLanguage = primaryLanguage => {
-    return primaryLanguage
-      ? {
-          name: primaryLanguage.name,
-          color: primaryLanguage.color
-        }
-      : {
-          name: 'na',
-          color: 'black'
-        };
-  };
-
-  const statusBar = (totalCount, totalCurrent, csvFileName, data) => (
-    <Container>
-      {totalCount > 0 && (
-        <Alert color="light text-secondary" className="my-alert">
-          <small>
-            <strong>
-              {totalCurrent}/{totalCount}
-            </strong>
-          </small>
-          <CSVLink
-            className="my-download"
-            data={handleDownload(data.organization.repositories)}
-            filename={csvFileName}
-          >
-            <i className="fas fa-cloud-download-alt" />
-          </CSVLink>
-        </Alert>
-      )}
-    </Container>
-  );
-
-  /**
-   * Tranform the github data to a csv compiliant format
-   */
-  const handleDownload = data => {
-    return data.edges.map(repo => {
-      return {
-        name: repo.node.name,
-        forkCount: repo.node.forkCount,
-        stars: repo.node.stargazers.totalCount,
-        contributors: getContributors(repo.node.collaborators.edges),
-        language: getPrimaryLanguage(repo.node.primaryLanguage),
-        pushedAt: repo.node.pushedAt,
-        createdAt: repo.node.createdAt,
-        descriptionHTML: repo.node.descriptionHTML,
-        homepageUrl: repo.node.homepageUrl,
-        url: repo.node.url,
-        topics: getTopics(repo.node.repositoryTopics.edges),
-        license: repo.node.license
-      };
-    });
-  };
-
   return (
     <Query query={GET_ORG_DATA}>
       {({ loading, error, data, fetchMore }) => {
@@ -101,13 +27,13 @@ const RepoContainer = props => {
           : '';
         this.showSpinner = loading ? loading : false;
         this.fetchInProgress = false;
-        const csvFileName =
-          'ProjectList_' + moment(new Date()).format('DD_MM_YYYY') + '.csv';
         return (
           <div>
-            {statusBar(totalCount, totalCurrent, csvFileName, data)}
             <RepoList
               data={data}
+              totalCurrent={totalCurrent}
+              totalCount={totalCount}
+              showSpinner={loading}
               onLoadMore={() => {
                 // Multiple scroll up and down can cause duplicate calls
                 // Ignore additional calls while there is a fetch in progress
@@ -157,15 +83,6 @@ const RepoContainer = props => {
                 }
               }}
             />
-            <Spinner
-              enabled={
-                // Show spinner based on loading attribute and
-                // current fetch status
-                (totalCurrent > 0 && totalCurrent < totalCount) ||
-                this.showSpinner
-              }
-            />
-            {statusBar(totalCount, totalCurrent, csvFileName, data)}
           </div>
         );
       }}
