@@ -39,6 +39,29 @@ const RepoContainer = props => {
         };
   };
 
+  const statusBar = (totalCount, totalCurrent, csvFileName, data) => (
+    <Container>
+      {totalCount > 0 && (
+        <Alert color="light text-primary" className="my-alert">
+          <i>
+            <small>
+              <strong>
+                {totalCurrent}/{totalCount}
+              </strong>
+            </small>
+          </i>
+          <CSVLink
+            className="my-download"
+            data={handleDownload(data.organization.repositories)}
+            filename={csvFileName}
+          >
+            <i className="fas fa-cloud-download-alt" />
+          </CSVLink>
+        </Alert>
+      )}
+    </Container>
+  );
+
   /**
    * Tranform the github data to a csv compiliant format
    */
@@ -84,6 +107,7 @@ const RepoContainer = props => {
           'ProjectList_' + moment(new Date()).format('DD_MM_YYYY') + '.csv';
         return (
           <div>
+            {statusBar(totalCount, totalCurrent, csvFileName, data)}
             <RepoList
               data={data}
               onLoadMore={() => {
@@ -135,34 +159,15 @@ const RepoContainer = props => {
                 }
               }}
             />
-            <Container>
-              <Spinner
-                enabled={
-                  // Show spinner based on loading attribute and
-                  // current fetch status
-                  (totalCurrent > 0 && totalCurrent < totalCount) ||
-                  this.showSpinner
-                }
-              />
-              {totalCount > 0 && (
-                <Alert color="light text-primary" className="my-alert">
-                  <i>
-                    <small>
-                      <strong>
-                        {totalCurrent}/{totalCount}
-                      </strong>
-                    </small>
-                  </i>
-                  <CSVLink
-                    className="my-download"
-                    data={handleDownload(data.organization.repositories)}
-                    filename={csvFileName}
-                  >
-                    <i className="fas fa-cloud-download-alt" />
-                  </CSVLink>
-                </Alert>
-              )}
-            </Container>
+            <Spinner
+              enabled={
+                // Show spinner based on loading attribute and
+                // current fetch status
+                (totalCurrent > 0 && totalCurrent < totalCount) ||
+                this.showSpinner
+              }
+            />
+            {statusBar(totalCount, totalCurrent, csvFileName, data)}
           </div>
         );
       }}

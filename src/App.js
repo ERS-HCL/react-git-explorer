@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Jumbotron, Nav, NavLink, NavItem } from 'reactstrap';
+import { Container, Jumbotron, Nav, NavLink, NavItem, Media } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import RepoContainer from './components/repoContainer/repoContainer';
@@ -26,19 +26,17 @@ class App extends Component {
       window.location.href.match(/\?code=(.*)/)[1];
     if (code) {
       this.setState({ status: STATUS.LOADING });
-      fetch(
-        `${process.env.REACT_APP_GATEKEEPER_URI}/authenticate/${code}`
-      )
+      fetch(`${process.env.REACT_APP_GATEKEEPER_URI}/authenticate/${code}`)
         .then(response => response.json())
         .then(({ token }) => {
           if (token) {
             this.setState({
               token,
-              status: STATUS.FINISHED_LOADING
+              status: STATUS.AUTHENTICATED
             });
           } else {
             this.setState({
-              token,
+              token: undefined,
               status: STATUS.INITIAL
             });
           }
@@ -75,7 +73,8 @@ class App extends Component {
     const loginPrompt = this.state.status === STATUS.INITIAL && (
       <div>
         <hr className="my-2" />
-        <p>
+
+        <p className="text-muted lead-2">
           You need to first login in with your Github credentials to view the
           statistics{' '}
         </p>
@@ -88,6 +87,7 @@ class App extends Component {
               }&scope=public_repo&redirect_uri=${
                 process.env.REACT_APP_REDIRECT_URI
               }`}
+              className="btn btn-secondary float-left"
               active
             >
               GITHUB LOGIN
@@ -96,16 +96,34 @@ class App extends Component {
         </Nav>
       </div>
     );
+    const loginStatus = (
+      <div>
+        {this.state.status === STATUS.LOADING && (
+          <div>
+            <hr className="my-2" />
+            <p className="text-info">Authenticating ..</p>
+          </div>
+        )}
+      </div>
+    );
 
     return (
       <div>
         <Jumbotron fluid className="jumbo">
           <Container fluid>
-            <h1 className="display-3">ERS HCL Github Stats</h1>
-            <p className="lead">
+            <h1 className="display-4">
+              <img
+                src="https://avatars2.githubusercontent.com/u/32506169?s=400&u=68132b5e3e0ace90c5411c436e521bf718d454e1&v=4"
+                alt="Avatar"
+                className="avatar1"
+              />
+              ERS HCL Github Stats
+            </h1>
+            <p className="lead-2">
               ERS HCL Organization Open Source project statistics..
             </p>
             {loginPrompt}
+            {loginStatus}
             <Spinner
               enabled={this.state.status === STATUS.LOADING}
               class={'spinner-black'}
