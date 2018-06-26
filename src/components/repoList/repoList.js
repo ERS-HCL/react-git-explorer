@@ -17,6 +17,10 @@ class RepoList extends Component {
     this.handleOnScroll = this.handleOnScroll.bind(this);
   }
 
+  state = {
+    loading: false
+  };
+
   componentDidMount() {
     window.addEventListener('scroll', this.handleOnScroll);
   }
@@ -41,59 +45,64 @@ class RepoList extends Component {
       Math.ceil(scrollTop + clientHeight + threshold) >= scrollHeight;
     // console.log(scrollTop, scrollHeight, clientHeight, scrolledToBottom);
     if (scrolledToBottom) {
-      this.props.onLoadMore();
+      this.handleLoadMore();
     }
   }
 
-  statusBar = (
-    totalCount,
-    totalCurrent,
-    csvFileName,
-    data,
-    showSpinner,
-    fetchInProgress
-  ) => (
-    <Container>
-      <Alert color="light text-secondary" className="my-alert">
-        <Spinner
-          class={'spinner-black'}
-          enabled={
-            // Show spinner based on loading attribute and
-            // current fetch status
-            showSpinner || fetchInProgress
-          }
-        />
-        {totalCount > 0 && (
-          <small>
-            <strong>
-              {totalCurrent}/{totalCount}
-            </strong>
-          </small>
-        )}
-        {totalCount !== totalCurrent && (
-          <Button
-            color="light"
-            className="btn btn-secondary my-forward"
-            size="sm"
-            onClick={() => this.props.onLoadMore()}
-          >
-            <i className="fas fa-forward my-forward" /> <small>MORE</small>
-          </Button>
-        )}
-        {totalCount > 0 &&
-          totalCount === totalCurrent && (
-            <CSVLink
-              className="my-download"
-              data={this.handleDownload(data.organization.repositories)}
-              filename={csvFileName}
-            >
-              <i className="fas fa-cloud-download-alt" />{' '}
-              <small>DOWNLOAD</small>
-            </CSVLink>
+  handleLoadMore = () => {
+    this.setState({
+      loading: true
+    });
+    this.props.onLoadMore().then(result => {
+      // False indicates loading already in progress
+      if (result !== false) this.setState({ loading: false });
+    });
+  };
+
+  statusBar = (totalCount, totalCurrent, csvFileName, data, showSpinner) => {
+    return (
+      <Container>
+        <Alert color="light text-secondary" className="my-alert">
+          <Spinner
+            class={'spinner-black'}
+            enabled={
+              // Show spinner based on loading attribute and
+              // current fetch status
+              showSpinner || this.state.loading
+            }
+          />
+          {totalCount > 0 && (
+            <small>
+              <strong>
+                {totalCurrent}/{totalCount}
+              </strong>
+            </small>
           )}
-      </Alert>
-    </Container>
-  );
+          {totalCount !== totalCurrent && (
+            <Button
+              color="light"
+              className="btn btn-secondary my-forward"
+              size="sm"
+              onClick={() => this.handleLoadMore()}
+            >
+              <i className="fas fa-forward my-forward" /> <small>MORE</small>
+            </Button>
+          )}
+          {totalCount > 0 &&
+            totalCount === totalCurrent && (
+              <CSVLink
+                className="my-download"
+                data={this.handleDownload(data.organization.repositories)}
+                filename={csvFileName}
+              >
+                <i className="fas fa-cloud-download-alt" />{' '}
+                <small>DOWNLOAD</small>
+              </CSVLink>
+            )}
+        </Alert>
+      </Container>
+    );
+  };
 
   getContributors = contributors => {
     return contributors
@@ -148,13 +157,7 @@ class RepoList extends Component {
   render() {
     const csvFileName =
       'ProjectList_' + moment(new Date()).format('DD_MM_YYYY') + '.csv';
-    const {
-      data,
-      totalCurrent,
-      totalCount,
-      showSpinner,
-      fetchInProgress
-    } = this.props;
+    const { data, totalCurrent, totalCount, showSpinner } = this.props;
     const cards = data.organization ? (
       <GitCards repositories={data.organization.repositories} />
     ) : (
