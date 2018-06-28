@@ -18,7 +18,7 @@ import './gitCards.css';
  * Git Cards Component displays github repository data in a cards view
  */
 const GitCards = props => {
-  const { repositories } = props;
+  const { repositories, filters } = props;
 
   // Extract primary language details
   const getPrimaryLanguage = primaryLanguage => {
@@ -73,7 +73,18 @@ const GitCards = props => {
     };
   });
 
-  const repoCards = reposdata.map(data => (
+  const filterRepos = reposdata.filter(
+    data =>
+      // Check if the filter set is equal to the data being checked
+      filters.length > 0
+        ? filters.filter(
+            filter =>
+              filter.value.toUpperCase() === data.language.name.toUpperCase()
+          ).length > 0
+        : true
+  );
+  // console.log(filterRepos);
+  const repoCards = filterRepos.map(data => (
     <Fade in={true} key={data.name}>
       <Card className="my-card">
         <CardBody>

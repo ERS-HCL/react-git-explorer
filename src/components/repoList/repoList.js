@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Alert, Button } from 'reactstrap';
+import { Container, Alert, Button, Row, Col } from 'reactstrap';
 import { CSVLink } from 'react-csv';
 import Spinner from '../spinner/spinner';
 import GitCards from '../gitCards/gitCards';
+import MultiSelect from '../multiSelect/multiSelect';
 import './repoList.css';
 
 const moment = require('moment-timezone');
@@ -18,7 +19,8 @@ class RepoList extends Component {
   }
 
   state = {
-    loading: false
+    loading: false,
+    filters: []
   };
 
   componentDidMount() {
@@ -59,58 +61,77 @@ class RepoList extends Component {
     });
   };
 
+  handleFilter = value => {
+    this.setState({
+      filters: value
+    });
+  };
+
   statusBar = (
     totalCount,
     totalCurrent,
     csvFileName,
     data,
     showSpinner,
-    loadButton
+    isHeader
   ) => {
     return (
       <Container>
         <Alert color="light text-secondary" className="my-alert">
-          <Spinner
-            class={'spinner-black'}
-            enabled={
-              // Show spinner based on loading attribute and
-              // current fetch status
-              showSpinner || this.state.loading
-            }
-          />
+          <Row>
+            <Spinner
+              class={'spinner-black'}
+              enabled={
+                // Show spinner based on loading attribute and
+                // current fetch status
+                showSpinner || this.state.loading
+              }
+            />
+            <Col>
+              <div className="my-total">
+                {totalCount > 0 && (
+                  <small>
+                    <strong>
+                      {totalCurrent}/{totalCount}{' '}
+                    </strong>
+                  </small>
+                )}
+                {isHeader &&
+                  totalCount !== totalCurrent && (
+                    <Button
+                      color="light"
+                      className="btn btn-secondary"
+                      size="sm"
+                      onClick={() => this.handleLoadMore()}
+                    >
+                      <div className="my-forward">
+                        <i className="fas fa-forward" /> <small>MORE</small>
+                      </div>
+                    </Button>
+                  )}
+              </div>
+              <div className="my-select">
+                {isHeader &&
+                  totalCount > 0 && (
+                    <MultiSelect onChange={this.handleFilter} />
+                  )}
+              </div>
+            </Col>
 
-          {!this.state.loading &&
-            totalCount > 0 && (
-              <small>
-                <strong>
-                  {totalCurrent}/{totalCount}
-                </strong>
-              </small>
-            )}
-          {loadButton &&
-            !this.state.loading &&
-            totalCount !== totalCurrent && (
-              <Button
-                color="light"
-                className="btn btn-secondary my-forward"
-                size="sm"
-                onClick={() => this.handleLoadMore()}
-              >
-                <i className="fas fa-forward my-forward" /> <small>MORE</small>
-              </Button>
-            )}
-          {!this.state.loading &&
-            totalCount > 0 &&
-            totalCount === totalCurrent && (
-              <CSVLink
-                className="my-download"
-                data={this.handleDownload(data.organization.repositories)}
-                filename={csvFileName}
-              >
-                <i className="fas fa-cloud-download-alt" />{' '}
-                <small>DOWNLOAD</small>
-              </CSVLink>
-            )}
+            {totalCount > 0 &&
+              totalCount === totalCurrent && (
+                <Col>
+                  <CSVLink
+                    className="my-download"
+                    data={this.handleDownload(data.organization.repositories)}
+                    filename={csvFileName}
+                  >
+                    <i className="fas fa-cloud-download-alt" />{' '}
+                    <small>DOWNLOAD</small>
+                  </CSVLink>
+                </Col>
+              )}
+          </Row>
         </Alert>
       </Container>
     );
@@ -171,7 +192,10 @@ class RepoList extends Component {
       'ProjectList_' + moment(new Date()).format('DD_MM_YYYY') + '.csv';
     const { data, totalCurrent, totalCount, showSpinner } = this.props;
     const cards = data.organization ? (
-      <GitCards repositories={data.organization.repositories} />
+      <GitCards
+        repositories={data.organization.repositories}
+        filters={this.state.filters}
+      />
     ) : (
       <div />
     );
