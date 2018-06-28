@@ -6,6 +6,7 @@ import RepoContainer from './components/repoContainer/repoContainer';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import Spinner from './components/spinner/spinner';
+import GithubCorner from './components/githubCorner/githubCorner';
 
 const STATUS = {
   INITIAL: 'initial',
@@ -109,6 +110,7 @@ class App extends Component {
 
     return (
       <div>
+        <GithubCorner githubUrl="https://github.com/ERS-HCL/react-git-explorer" />
         <Jumbotron fluid className="jumbo">
           <Container fluid>
             <h1 className="display-4">
@@ -130,6 +132,7 @@ class App extends Component {
             />
           </Container>
         </Jumbotron>
+
         {client && (
           <ApolloProvider client={client}>
             <RepoContainer />
