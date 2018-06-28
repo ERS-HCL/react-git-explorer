@@ -10,7 +10,7 @@ moment.tz.setDefault('UTC');
 class RepoContainer extends Component {
   render() {
     return (
-      <Query query={GET_ORG_DATA}>
+      <Query query={GET_ORG_DATA} errorPolicy="ignore">
         {({ loading, error, data, fetchMore }) => {
           if (error) return `Error! ${error.message}`;
 
