@@ -125,6 +125,7 @@ class RepoList extends Component {
                     </Button>
                   )}
               </div>
+              {isHeader && totalCount > 0 && <hr />}
               <div className="my-select">
                 {isHeader &&
                   totalCount > 0 && (
