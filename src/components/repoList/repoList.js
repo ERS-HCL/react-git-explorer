@@ -4,6 +4,7 @@ import { CSVLink } from 'react-csv';
 import Spinner from '../spinner/spinner';
 import GitCards from '../gitCards/gitCards';
 import MultiSelect from '../multiSelect/multiSelect';
+import DateRangePicker from '../dateRangePicker/dateRangePicker';
 import './repoList.css';
 
 const moment = require('moment-timezone');
@@ -20,7 +21,9 @@ class RepoList extends Component {
 
   state = {
     loading: false,
-    filters: []
+    filters: [],
+    filterStartDate: null,
+    filterEndDate: null
   };
 
   componentDidMount() {
@@ -64,6 +67,18 @@ class RepoList extends Component {
   handleFilter = value => {
     this.setState({
       filters: value
+    });
+  };
+
+  handleChangeFilterStartDate = value => {
+    this.setState({
+      filterStartDate: value
+    });
+  };
+
+  handleChangeFilterEndDate = value => {
+    this.setState({
+      filterEndDate: value
     });
   };
 
@@ -116,6 +131,13 @@ class RepoList extends Component {
                     <MultiSelect onChange={this.handleFilter} />
                   )}
               </div>
+              {isHeader &&
+                totalCount > 0 && (
+                  <DateRangePicker
+                    onChangeStartDate={this.handleChangeFilterStartDate}
+                    onChangeEndDate={this.handleChangeFilterEndDate}
+                  />
+                )}
             </Col>
 
             {totalCount > 0 &&
@@ -195,6 +217,8 @@ class RepoList extends Component {
       <GitCards
         repositories={data.organization.repositories}
         filters={this.state.filters}
+        filterStartDate={this.state.filterStartDate}
+        filterEndDate={this.state.filterEndDate}
       />
     ) : (
       <div />

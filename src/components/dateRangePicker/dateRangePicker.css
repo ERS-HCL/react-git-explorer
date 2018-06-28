@@ -1,0 +1,16 @@
+.my-datepicker {
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  font: inherit;
+  font-size: 0.85em;
+  padding: 2px;
+  align-self: auto;
+  padding: 5px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.my-daterange {
+  display: flex;
+}

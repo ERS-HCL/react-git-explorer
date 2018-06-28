@@ -13,12 +13,13 @@ import {
 } from 'reactstrap';
 import GitDecorators from '../gitDecorators/gitDecorators';
 import './gitCards.css';
-
+const moment = require('moment-timezone');
+moment.tz.setDefault('UTC');
 /**
  * Git Cards Component displays github repository data in a cards view
  */
 const GitCards = props => {
-  const { repositories, filters } = props;
+  const { repositories, filters, filterStartDate, filterEndDate } = props;
 
   // Extract primary language details
   const getPrimaryLanguage = primaryLanguage => {
@@ -83,8 +84,16 @@ const GitCards = props => {
           ).length > 0
         : true
   );
-  // console.log(filterRepos);
-  const repoCards = filterRepos.map(data => (
+
+  const filterDateRange = filterRepos.filter(
+    data =>
+      (filterStartDate
+        ? moment(data.pushedAt).isAfter(filterStartDate)
+        : true) &&
+      (filterEndDate ? moment(data.pushedAt).isBefore(filterEndDate) : true)
+  );
+  // console.log(filterDateRange);
+  const repoCards = filterDateRange.map(data => (
     <Fade in={true} key={data.name}>
       <Card className="my-card">
         <CardBody>

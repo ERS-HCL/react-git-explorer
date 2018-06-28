@@ -46,6 +46,7 @@
     "react": "^16.4.0",
     "react-apollo": "^2.1.4",
     "react-csv": "^1.0.14",
+    "react-datepicker": "^1.5.0",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.4.0",
     "react-select": "^2.0.0-beta.6",
