@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Jumbotron, Nav, NavLink, NavItem } from 'reactstrap';
+import { Container, Jumbotron, Nav, NavLink, NavItem, Badge } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import RepoContainer from './components/repoContainer/repoContainer';
@@ -7,6 +7,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import Spinner from './components/spinner/spinner';
 import GithubCorner from './components/githubCorner/githubCorner';
+import OrgInput from './components/orgInput/orgInput';
 
 const STATUS = {
   INITIAL: 'initial',
@@ -16,10 +17,14 @@ const STATUS = {
 };
 
 class App extends Component {
-  state = {
-    status: STATUS.INITIAL,
-    token: null
-  };
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      status: STATUS.INITIAL,
+      org: 'ERS-HCL',
+      token: null
+    };
+  }
 
   componentDidMount() {
     const code =
@@ -45,11 +50,20 @@ class App extends Component {
     }
   }
 
+  handleOrgChange = data => {
+    this.setState({
+      org: data.org
+    });
+    //   console.log(data.org);
+  };
+
   render() {
+    // console.log(this.state.org);
     const client =
       this.state.token &&
       new ApolloClient({
         uri: 'https://api.github.com/graphql',
+        errorPolicy: 'ignore',
         fetchOptions: {
           credentials: 'include'
         },
@@ -63,13 +77,17 @@ class App extends Component {
         },
         onError: ({ graphQLErrors, networkError }) => {
           if (graphQLErrors) {
-            console.log(graphQLErrors);
+            //  console.log(graphQLErrors);
           }
           if (networkError) {
-            console.log(networkError);
+            //  console.log(networkError);
           }
         }
       });
+
+    const orgInputForm = this.state.status === STATUS.AUTHENTICATED && (
+      <OrgInput org={this.state.org} onSubmit={this.handleOrgChange} />
+    );
 
     const loginPrompt = this.state.status === STATUS.INITIAL && (
       <div>
@@ -107,7 +125,20 @@ class App extends Component {
         )}
       </div>
     );
-
+    const currentStatus = (
+      <h6>
+        Login Status{' '}
+        {this.state.status === STATUS.INITIAL && (
+          <Badge color="secondary">Anonymous user</Badge>
+        )}
+        {this.state.status === STATUS.LOADING && (
+          <Badge color="secondary">Authenticating</Badge>
+        )}
+        {this.state.status === STATUS.AUTHENTICATED && (
+          <Badge color="success">Authenticated</Badge>
+        )}
+      </h6>
+    );
     return (
       <div>
         <GithubCorner githubUrl="https://github.com/ERS-HCL/react-git-explorer" />
@@ -119,23 +150,28 @@ class App extends Component {
                 alt="Avatar"
                 className="avatar1"
               />
-              ERS HCL Github Stats
+              Github Stats
             </h1>
             <p className="lead-2">
-              ERS HCL Organization Open Source project statistics..
+              Organization Open Source project statistics..
             </p>
+            <h6>
+              Current Organization{' '}
+              <Badge color="secondary">{this.state.org}</Badge>
+            </h6>
+            {currentStatus}
             {loginPrompt}
-            {loginStatus}
             <Spinner
               enabled={this.state.status === STATUS.LOADING}
               class={'spinner-black'}
             />
+            {orgInputForm}
           </Container>
         </Jumbotron>
 
         {client && (
           <ApolloProvider client={client}>
-            <RepoContainer />
+            <RepoContainer org={this.state.org} />
           </ApolloProvider>
         )}
       </div>

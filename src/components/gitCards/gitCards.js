@@ -62,7 +62,9 @@ const GitCards = props => {
       name: repo.node.name,
       forkCount: repo.node.forkCount,
       stars: repo.node.stargazers.totalCount,
-      contributors: getContributors(repo.node.collaborators.edges),
+      contributors: repo.node.collaborators
+        ? getContributors(repo.node.collaborators.edges)
+        : undefined,
       language: getPrimaryLanguage(repo.node.primaryLanguage),
       pushedAt: repo.node.pushedAt,
       createdAt: repo.node.createdAt,

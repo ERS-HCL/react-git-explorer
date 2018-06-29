@@ -192,12 +192,15 @@ class RepoList extends Component {
    * Tranform the github data to a csv compiliant format
    */
   handleDownload = data => {
+    //  console.log(data);
     return data.edges.map(repo => {
       return {
         name: repo.node.name,
         forkCount: repo.node.forkCount,
         stars: repo.node.stargazers.totalCount,
-        contributors: this.getContributors(repo.node.collaborators.edges),
+        contributors: repo.node.collaborators
+          ? this.getContributors(repo.node.collaborators.edges)
+          : null,
         language: this.getPrimaryLanguage(repo.node.primaryLanguage),
         pushedAt: repo.node.pushedAt,
         createdAt: repo.node.createdAt,

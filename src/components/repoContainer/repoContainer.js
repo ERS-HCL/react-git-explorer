@@ -9,8 +9,11 @@ moment.tz.setDefault('UTC');
 
 class RepoContainer extends Component {
   render() {
+    //  const org = 'facebook';
+    //const variables = { $org: 'facebook' };
+    const { org } = this.props;
     return (
-      <Query query={GET_ORG_DATA} errorPolicy="ignore">
+      <Query query={GET_ORG_DATA} variables={{ org: org }} errorPolicy="ignore">
         {({ loading, error, data, fetchMore }) => {
           if (error) return `Error! ${error.message}`;
 
@@ -49,7 +52,8 @@ class RepoContainer extends Component {
                     this.fetchInProgress = true;
                     return fetchMore({
                       query: GET_CURSOR_ORG_DATA,
-                      variables: { cursor: newCursor },
+                      errorPolicy: 'ignore',
+                      variables: { cursor: newCursor, org: org },
                       updateQuery: (previousResult, { fetchMoreResult }) => {
                         const newTotalCount =
                           fetchMoreResult.organization.repositories.totalCount;
