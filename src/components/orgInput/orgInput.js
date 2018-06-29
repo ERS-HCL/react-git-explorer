@@ -50,7 +50,7 @@ class OrgInput extends Component {
             id="orgName"
             className="my-input"
             value={this.state.org}
-            placeholder="Github organization name"
+            placeholder="Github org name"
             onChange={this.handleChange.bind(this)}
             disabled={!this.state.enabled}
           />

@@ -115,16 +115,6 @@ class App extends Component {
         </Nav>
       </div>
     );
-    const loginStatus = (
-      <div>
-        {this.state.status === STATUS.LOADING && (
-          <div>
-            <hr className="my-2" />
-            <p className="text-info">Authenticating ..</p>
-          </div>
-        )}
-      </div>
-    );
     const currentStatus = (
       <h6>
         Login Status{' '}
