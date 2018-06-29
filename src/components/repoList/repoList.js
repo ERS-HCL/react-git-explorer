@@ -177,15 +177,7 @@ class RepoList extends Component {
   };
 
   getPrimaryLanguage = primaryLanguage => {
-    return primaryLanguage
-      ? {
-          name: primaryLanguage.name,
-          color: primaryLanguage.color
-        }
-      : {
-          name: 'na',
-          color: 'black'
-        };
+    return primaryLanguage ? primaryLanguage.name : 'na';
   };
 
   /**
