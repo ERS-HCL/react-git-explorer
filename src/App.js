@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Jumbotron, Nav, NavLink, NavItem, Badge } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import RepoContainer from './components/repoContainer/repoContainer';
 import ApolloClient from 'apollo-boost';
