@@ -33,7 +33,7 @@ class OrgInput extends Component {
   render() {
     const { onSubmit } = this.props;
     return (
-      <Container>
+      <div>
         <Form
           inline
           onSubmit={event => {
@@ -74,7 +74,7 @@ class OrgInput extends Component {
             </Button>
           </FormGroup>
         </Form>
-      </Container>
+      </div>
     );
   }
 }
