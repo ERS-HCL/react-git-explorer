@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Container } from 'reactstrap';
 import './orgInput.css';
 
 class OrgInput extends Component {
@@ -33,44 +33,48 @@ class OrgInput extends Component {
   render() {
     const { onSubmit } = this.props;
     return (
-      <Form
-        inline
-        onSubmit={event => {
-          event.preventDefault();
-          onSubmit(this.state);
-        }}
-      >
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0" inline>
-          <Label for="orgName" className="mr-sm-2">
-            Organization
-          </Label>
-          <Input
-            type="text"
-            name="orgName"
-            id="orgName"
-            className="my-input"
-            value={this.state.org}
-            placeholder="Github org name"
-            onChange={this.handleChange.bind(this)}
-            disabled={!this.state.enabled}
-          />
-
-          <Label check>
-            <Input
-              type="checkbox"
-              onChange={this.handleCheck}
-              checked={this.state.enabled}
-            />{' '}
-            EDIT ORG
-          </Label>
-        </FormGroup>
-        <Button
-          onClick={() => onSubmit(this.state)}
-          disabled={!this.state.enabled}
+      <Container>
+        <Form
+          inline
+          onSubmit={event => {
+            event.preventDefault();
+            onSubmit(this.state);
+          }}
         >
-          UPDATE ORG
-        </Button>
-      </Form>
+          <FormGroup className="mb-2 mr-sm-2 mb-sm-0" inline>
+            <Label for="orgName" className="mr-sm-2">
+              Organization
+            </Label>
+            <Input
+              type="text"
+              name="orgName"
+              id="orgName"
+              className="my-input"
+              value={this.state.org}
+              placeholder="Github org name"
+              onChange={this.handleChange.bind(this)}
+              disabled={!this.state.enabled}
+            />
+
+            <Label check className="my-input">
+              <Input
+                type="checkbox"
+                onChange={this.handleCheck}
+                checked={this.state.enabled}
+              />{' '}
+              EDIT ORG
+            </Label>
+
+            <Button
+              onClick={() => onSubmit(this.state)}
+              disabled={!this.state.enabled}
+              className="my-input"
+            >
+              UPDATE ORG
+            </Button>
+          </FormGroup>
+        </Form>
+      </Container>
     );
   }
 }
