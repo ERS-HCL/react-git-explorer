@@ -20,6 +20,7 @@
 .my-card {
   display: inline-block;
   font-size: 0.85em;
+  font-family: 'Montserrat', sans-serif;
   box-shadow: 1px 2px 0px grey;
 }
 

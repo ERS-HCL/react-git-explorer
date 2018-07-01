@@ -9,11 +9,13 @@
 }
 
 .spinner-black {
-  font-size: 1.25em;
+  font-size: 1em;
   position: relative;
-  color: black;
+  color: inherit;
+  text-align: auto;
+  /* 
   align-self: center;
   align-content: center;
   align-items: center;
-  text-align: center;
+  text-align: center; */
 }

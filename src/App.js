@@ -85,7 +85,10 @@ class App extends Component {
       });
 
     const orgInputForm = this.state.status === STATUS.AUTHENTICATED && (
-      <OrgInput org={this.state.org} onSubmit={this.handleOrgChange} />
+      <div>
+        <hr className="my-2" />
+        <OrgInput org={this.state.org} onSubmit={this.handleOrgChange} />
+      </div>
     );
 
     const loginPrompt = this.state.status === STATUS.INITIAL && (
@@ -97,7 +100,7 @@ class App extends Component {
           statistics{' '}
         </p>
 
-        <Nav pills>
+        <Nav pills size="sm">
           <NavItem>
             <NavLink
               href={`https://github.com/login/oauth/authorize?client_id=${
@@ -118,13 +121,19 @@ class App extends Component {
       <h6>
         Login Status{' '}
         {this.state.status === STATUS.INITIAL && (
-          <Badge color="secondary">Anonymous user</Badge>
+          <Badge color="danger" className="my-badge">
+            Anonymous user
+          </Badge>
         )}
         {this.state.status === STATUS.LOADING && (
-          <Badge color="secondary">Authenticating</Badge>
+          <Badge color="secondary" className="my-badge">
+            Authenticating
+          </Badge>
         )}
         {this.state.status === STATUS.AUTHENTICATED && (
-          <Badge color="success">Authenticated</Badge>
+          <Badge color="success" className="my-badge">
+            Authenticated
+          </Badge>
         )}
       </h6>
     );
@@ -134,11 +143,11 @@ class App extends Component {
         <Jumbotron fluid className="jumbo">
           <Container fluid>
             <h1 className="display-4">
-              <img
+              {/*           <img
                 src="https://avatars2.githubusercontent.com/u/32506169?s=400&u=68132b5e3e0ace90c5411c436e521bf718d454e1&v=4"
                 alt="Avatar"
                 className="avatar1"
-              />
+              /> */}
               Github Stats
             </h1>
             <p className="lead-2">
@@ -146,7 +155,9 @@ class App extends Component {
             </p>
             <h6>
               Current Organization{' '}
-              <Badge color="secondary">{this.state.org}</Badge>
+              <Badge color="info" className="my-badge">
+                {this.state.org}
+              </Badge>
             </h6>
             {currentStatus}
             {loginPrompt}

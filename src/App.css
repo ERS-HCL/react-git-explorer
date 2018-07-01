@@ -19,7 +19,16 @@
     #ddf1f9 65%,
     #feffff 100%
   ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  font-family: 'Montserrat', sans-serif;
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a0d8ef', endColorstr='#feffff',GradientType=0 ); /* IE6-9 */
+}
+
+.jumbo h1 {
+  font-family: 'Shadows Into Light', cursive;
+}
+
+.jumbo h6 {
+  font-family: 'Shadows Into Light', cursive;
 }
 
 .avatar1 {
@@ -27,4 +36,10 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+
+.jumbo .my-badge {
+  float: right;
+  font-family: 'Montserrat', sans-serif;
+  margin-right: 80%;
 }

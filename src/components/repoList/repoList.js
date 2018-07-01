@@ -101,6 +101,7 @@ class RepoList extends Component {
                 // current fetch status
                 showSpinner || this.state.loading
               }
+              message="Fetching stats .."
             />
             <Col>
               <div className="my-total">
@@ -192,7 +193,7 @@ class RepoList extends Component {
         stars: repo.node.stargazers.totalCount,
         contributors: repo.node.collaborators
           ? this.getContributors(repo.node.collaborators.edges)
-          : null,
+          : '',
         language: this.getPrimaryLanguage(repo.node.primaryLanguage),
         pushedAt: repo.node.pushedAt,
         createdAt: repo.node.createdAt,
