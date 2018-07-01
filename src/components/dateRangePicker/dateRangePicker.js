@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
+import { Container, Row } from 'reactstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import './dateRangePicker.css';
 const moment = require('moment-timezone');
@@ -41,29 +42,31 @@ class DateRangePicker extends Component {
 
   render() {
     return (
-      <div className="my-daterange">
-        <DatePicker
-          selected={this.state.startDate}
-          selectsStart
-          startDate={this.state.startDate}
-          endDate={this.state.endDate}
-          onChange={this.handleChangeStart}
-          isClearable={true}
-          placeholderText="Last Update Start Date"
-          className="my-datepicker"
-        />
+      <Container>
+        <Row>
+          <DatePicker
+            selected={this.state.startDate}
+            selectsStart
+            startDate={this.state.startDate}
+            endDate={this.state.endDate}
+            onChange={this.handleChangeStart}
+            isClearable={true}
+            placeholderText="Last Update Start Date"
+            className="my-datepicker"
+          />
 
-        <DatePicker
-          selected={this.state.endDate}
-          selectsEnd
-          startDate={this.state.startDate}
-          endDate={this.state.endDate}
-          onChange={this.handleChangeEnd}
-          isClearable={true}
-          placeholderText="Last Update End Date"
-          className="my-datepicker"
-        />
-      </div>
+          <DatePicker
+            selected={this.state.endDate}
+            selectsEnd
+            startDate={this.state.startDate}
+            endDate={this.state.endDate}
+            onChange={this.handleChangeEnd}
+            isClearable={true}
+            placeholderText="Last Update End Date"
+            className="my-datepicker"
+          />
+        </Row>
+      </Container>
     );
   }
 }
