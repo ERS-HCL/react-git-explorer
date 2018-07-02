@@ -21,6 +21,8 @@
   ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   font-family: 'Montserrat', sans-serif;
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a0d8ef', endColorstr='#feffff',GradientType=0 ); /* IE6-9 */
+  z-index: 19000;
+  box-shadow: 0 5px 10px rgba(29, 29, 38, 0.741);
 }
 
 .jumbo h1 {
