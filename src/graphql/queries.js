@@ -18,7 +18,9 @@ const GET_CURSOR_ORG_DATA = gql`
           node {
             name
             descriptionHTML
-            license
+            licenseInfo{
+              name
+            }
             stargazers(first: 50) {
               totalCount
             }
@@ -71,7 +73,9 @@ const GET_ORG_DATA = gql`
           node {
             name
             descriptionHTML
-            license
+            licenseInfo{
+              name
+            }
             stargazers(first: 50) {
               totalCount
             }

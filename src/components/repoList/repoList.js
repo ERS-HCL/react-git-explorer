@@ -201,7 +201,7 @@ class RepoList extends Component {
         homepageUrl: repo.node.homepageUrl,
         url: repo.node.url,
         topics: this.getTopics(repo.node.repositoryTopics.edges),
-        license: repo.node.license
+        license: repo.node.licenseInfo ? repo.node.licenseInfo.name: 'na'
       };
     });
   };
