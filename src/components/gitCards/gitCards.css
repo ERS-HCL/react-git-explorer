@@ -13,16 +13,14 @@
 
 .my-contributors {
   background-color: #e0edf4;
-  border-left: 5px solid #3eb3f6;
-  box-shadow: 0px 2.5px 2.5px lightslategray;
+  box-shadow: 0px 2px 4px rgb(29, 49, 47);
 }
 
 .my-card {
   display: inline-block;
   font-size: 0.85em;
   font-family: 'Montserrat', sans-serif;
-  box-shadow: 0px 1px 2px grey;
-  z-index: 5000;
+  box-shadow: 1px 2px 4px rgb(29, 49, 47);
 }
 
 .my-badge {

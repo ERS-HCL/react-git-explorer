@@ -32,7 +32,7 @@
 
 .my-alert {
   font-family: 'Montserrat', sans-serif;
-  box-shadow: 1px 4px grey;
+  box-shadow: 1px 2px 4px rgb(29, 49, 47);
 }
 
 .my-total {
