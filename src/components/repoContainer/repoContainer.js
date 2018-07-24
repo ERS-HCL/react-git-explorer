@@ -47,7 +47,7 @@ class RepoContainer extends Component {
                   }
                   if (
                     totalCurrent < totalCount &&
-                    (newCursor !== null || newCursor !== '')
+                    (newCursor && newCursor !== '')
                   ) {
                     this.fetchInProgress = true;
                     return fetchMore({
