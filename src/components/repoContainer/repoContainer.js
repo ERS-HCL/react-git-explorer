@@ -45,10 +45,7 @@ class RepoContainer extends Component {
                   if (this.fetchInProgress) {
                     return Promise.resolve(false);
                   }
-                  if (
-                    totalCurrent < totalCount &&
-                    (newCursor && newCursor !== '')
-                  ) {
+                  if (totalCurrent < totalCount && newCursor) {
                     this.fetchInProgress = true;
                     return fetchMore({
                       query: GET_CURSOR_ORG_DATA,

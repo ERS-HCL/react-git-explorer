@@ -44,7 +44,7 @@ class RepoList extends Component {
       (document.documentElement && document.documentElement.scrollHeight) ||
       document.body.scrollHeight;
     const clientHeight =
-      document.documentElement.clientHeight || window.innerHeight;
+     (document.documentElement && document.documentElement.clientHeight) || window.innerHeight;
     const threshold = 100;
     const scrolledToBottom =
       Math.ceil(scrollTop + clientHeight + threshold) >= scrollHeight;

@@ -8,7 +8,7 @@ moment.tz.setDefault('UTC');
  */
 const GitDecorators = props => {
   const stars =
-    props.stars && props.stars !== 0 ? (
+    props.stars && props.stars > 0 ? (
       <div className="my-decorator text-muted">
         <i className="fas fa-star my-icon text-success" /> {props.stars}
       </div>
@@ -16,7 +16,7 @@ const GitDecorators = props => {
       undefined
     );
   const forks =
-    props.forks && props.forks !== 0 ? (
+    props.forks && props.forks > 0 ? (
       <div className="my-decorator text-muted">
         <i className="fas fa-code-branch my-icon" /> {props.forks}
       </div>

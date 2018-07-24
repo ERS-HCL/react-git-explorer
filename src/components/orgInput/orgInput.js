@@ -5,8 +5,6 @@ import './orgInput.css';
 class OrgInput extends Component {
   constructor(props, context) {
     super(props, context);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.state = {
       org: this.props.org,
       enabled: false
@@ -52,7 +50,7 @@ class OrgInput extends Component {
               className="my-input"
               value={this.state.org}
               placeholder="Github org name"
-              onChange={this.handleChange.bind(this)}
+              onChange={this.handleChange}
               disabled={!this.state.enabled}
             />
 

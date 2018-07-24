@@ -7,17 +7,11 @@ const moment = require('moment-timezone');
 moment.tz.setDefault('UTC');
 
 class DateRangePicker extends Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.handleChangeStart = this.handleChangeStart.bind(this);
-    this.handleChangeEnd = this.handleChangeEnd.bind(this);
-  }
-
   state = {
     startDate: null,
     endDate: null
   };
+
   handleChangeStart = date => {
     this.setState(
       {
