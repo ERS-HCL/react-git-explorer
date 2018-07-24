@@ -1,5 +1,7 @@
 # React Git Explorer
 
+[![DeepScan grade](https://deepscan.io/api/projects/2879/branches/21481/badge/grade.svg)](https://deepscan.io/dashboard#view=project&pid=2879&bid=21481)
+
 - This app aim
   - To use the apollo graphql client to extract github data via its GraphQL APIs
   - Infinite scroll where github project cards will be displayed.
