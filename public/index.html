@@ -26,9 +26,12 @@
     crossorigin="anonymous">
   <title>React Git Explorer</title>
   <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+  <script src="perfObserver.js"></script>
 </head>
 
-<body>
+
+
+<body onload="initPerformanceObserver();">
   <noscript>
     You need to enable JavaScript to run this app.
   </noscript>
