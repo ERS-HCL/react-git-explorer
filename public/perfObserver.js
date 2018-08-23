@@ -27,6 +27,7 @@ function initPerformanceObserver() {
       'frame',
       'navigation',
       'longtask'
-    ]
+    ],
+    buffered: true
   });
 }

@@ -18,6 +18,10 @@
 
 ![tech approach](./public/react-git-explorer.png)
 
+## RUM using PerformanceObserver API
+
+- longtask and the other entrytypes have been added to monitor the performance during dev time.
+
 ## setup
 
 ```bash
